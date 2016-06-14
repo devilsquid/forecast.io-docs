@@ -1,0 +1,456 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <title>Reference</title>
+    <!--link rel="stylesheet" href="ldoc.css" type="text/css" /-->
+    <link href='https://fonts.googleapis.com/css?family=Cousine' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=BenchNine:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://devilsquid.com/files/docs-base-min.css">
+    <link rel="stylesheet" href="https://devilsquid.com/files/docs-pure-min.css">
+    <link rel="stylesheet" href="https://devilsquid.com/files/docs-side-menu.css">
+    <link rel="stylesheet" href="https://devilsquid.com/files/docs-content.css">
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="layout">
+
+
+<!-- Menu -->
+
+<div id="menu">
+<div class="pure-menu">
+<div class="DS-logo"><a href="https://devilsquid.com"><img src="https://devilsquid.com/wp-content/uploads/2016/05/logotext-devilsquid_white@2x.png"></a></div>
+<br/>
+<h3>Forecast.io</h3>
+<h5>forecastio.lua</h5>
+
+
+
+<h4>Functions</h4>
+<ul class="nowrap pure-menu-list">
+    <li class="pure-menu-item"><a href="#ForeCastIO:new">ForeCastIO:new()</a></li>
+    <li class="pure-menu-item"><a href="#forecast:GetCondition">forecast:GetCondition()</a></li>
+    <li class="pure-menu-item"><a href="#forecast:GetDailyForecast">forecast:GetDailyForecast()</a></li>
+    <li class="pure-menu-item"><a href="#forecast:GetHourlyForecast">forecast:GetHourlyForecast()</a></li>
+</ul>
+
+
+</div><!-- .pure-menu -->
+</div><!-- #menu -->
+
+<div id="main">
+
+<div class="header">
+<h2>Get weather data from forecast.io.</h2>
+<h1>Forecast.io Module</h1>
+<p> Retrieve current weather conditions and forecasts for a location.
+ <br><br>
+ In order to use the API, you will need an API Key. You can sign up for one at <a href="https://developer.forecast.io/" target="_new">https://developer.forecast.io/</a>.<br>
+ Furthermore I recommend to study the API developer docs you can find at <a href="https://developer.forecast.io/docs/v2" target="_new">https://developer.forecast.io/docs/v2</a>
+ <br><br>
+ This module is developed by <a href="https://devilssquid.com">DevilSquid</a> – your learning resource for Corona SDK.
+ <br><br>
+ <strong>Please make sure what the Terms of Use of this API service are. This module is a connection to a third party API service to use their data. Have in mind that these services do
+ have their own requirements and attribution guidelines you have to comply with.</strong></p>
+
+    <table class="pure-table pure-table-horizontal">
+    <thead><tr><th><strong>Info</strong></th><th></th></tr></thead>
+        <tr><td><strong>Copyright</strong></td><td><a href="https://devilssquid.com">DevilSquid</a>, René Aye 2016</td></tr>
+        <tr><td><strong>License</strong></td><td> MIT<br>
+ <span style="font-size: 0.8em;">You are allowed to use the code for any private and commercial projects.
+ You have to give credits like: Free forecast.io weather module from devilsquid.com</span></td></tr>
+        <tr><td><strong>Author</strong></td><td>René Aye</td></tr>
+      <tr><td><strong>Last updated</strong></td><td>2016-06-14 08:19:06</td></tr>
+    </table>
+</div><!-- .header -->
+
+<div class="content">
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list pure-table pure-table-striped">
+	<tr>
+	<td class="name" nowrap><a href="#ForeCastIO:new">ForeCastIO:new (options, forceRequest)</a></td>
+	<td class="summary">Create a new forecast.io weather object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#forecast:GetCondition">forecast:GetCondition (optDataKind, optWithUnits)</a></td>
+	<td class="summary">Read the current weather conditions from locally saved weather data</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#forecast:GetDailyForecast">forecast:GetDailyForecast (optDay, optDataKind, optWithUnits)</a></td>
+	<td class="summary">Read the daily forecast weather conditions from locally saved weather data</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#forecast:GetHourlyForecast">forecast:GetHourlyForecast (optHour, optDataKind, optWithUnits)</a></td>
+	<td class="summary">Read the hourly forecast weather conditions from locally saved weather data</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "ForeCastIO:new"></a>
+    <strong>ForeCastIO:new (options, forceRequest)</strong>
+    </dt>
+    <dd>
+    Create a new forecast.io weather object.  The request gets send to forecast.io API server.
+ The answer with weather data gets saved to local directory, to prevent too many requests to the API server
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">options</span>
+        <p> a table with options</p>
+
+<ul>
+<li><code>apiKey</code>:     (<strong>string</strong>) the api key you get from forecast.io</li>
+<li><code>town</code>:       (<strong>string</strong>) the name of the town you want to request weather data for</li>
+<li><code>street</code>:     (<strong>string</strong>) the street and house number</li>
+<li><code>zip</code>:        (<strong>string</strong>) the zip code as a string</li>
+<li><code>country</code>:    (<strong>string</strong>) the full name or short code of the country</li>
+<li><code>expires</code>:    (<strong>number</strong>) how long before the weather data expires in seconds (<em>default</em>: 3600)</li>
+<li><code>units</code>:      (<strong>string</strong>) metric &ldquo;si&rdquo; or imperial &ldquo;us&rdquo; units or &ldquo;ca&rdquo; or &ldquo;uk2&rdquo; (<em>default</em>: &ldquo;us&rdquo;)</li>
+<li><code>language</code>:   (<strong>string</strong>) short code for the language, see here which languages are
+supported <a href="https://developer.forecast.io/docs/v2#options" target="_new">https://developer.forecast.io/docs/</a>, does not have
+effect on the <strong>units</strong> parameter (<em>default</em>: &ldquo;en&rdquo;)</li>
+<li><code>callback</code>:   (<strong>function</strong>) an outer callback function that gets called, when the data is ready to be used</li>
+</ul>
+
+
+        </li>
+        <li><span class="parameter">forceRequest</span>
+            <span class="types"><span class="type">bool</span></span>
+         forces a request to forecast.io&rsquo;s weather server, although the data has not been expired
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        forecast.io weather object
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="keyword">local</span> <span class="keyword">function</span> WeatherListener( event )
+      <span class="keyword">if</span> event.<span class="global">type</span> == <span class="string">"ready"</span> <span class="keyword">then</span>
+          <span class="global">print</span>( <span class="string">"Temperature: "</span>,                 event.forecastio:GetCondition(<span class="string">"temp"</span>, <span class="keyword">true</span>) )
+          <span class="global">print</span>( <span class="string">"Summary: "</span>,                     event.forecastio:GetCondition(<span class="string">"summary"</span>, <span class="keyword">true</span>) )
+          <span class="global">print</span>( <span class="string">"Ozone: "</span>,                       event.forecastio:GetCondition(<span class="string">"ozone"</span>, <span class="keyword">true</span>) )
+          <span class="global">print</span>( <span class="string">"Precipitation Type: "</span>,          event.forecastio:GetCondition(<span class="string">"preciptype"</span>, <span class="keyword">true</span>) )
+          <span class="global">print</span>( <span class="string">"Precipitation Probability: "</span>,   event.forecastio:GetCondition(<span class="string">"precipProbability"</span>, <span class="keyword">true</span>) )
+          <span class="global">print</span>( <span class="string">"Pressure: "</span>,                    event.forecastio:GetCondition(<span class="string">"pressure"</span>, <span class="keyword">true</span>) )
+          <span class="global">print</span>( <span class="string">"Humidity: "</span>,                    event.forecastio:GetCondition(<span class="string">"humidity"</span>, <span class="keyword">true</span>) )
+      <span class="keyword">end</span>
+ <span class="keyword">end</span>
+ <span class="keyword">local</span> weather = ForeCastIO:new({
+     apiKey      = <span class="string">"YOUR_API_KEY"</span>,
+     town        = <span class="string">"Barsinghausen"</span>,
+     street      = <span class="string">"Siehkamp 12"</span>,
+     zip         = <span class="string">"30890"</span>,
+     country     = <span class="string">"de"</span>,
+     units       = <span class="string">"si"</span>,
+     callback    = WeatherListener
+     })</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "forecast:GetCondition"></a>
+    <strong>forecast:GetCondition (optDataKind, optWithUnits)</strong>
+    </dt>
+    <dd>
+    Read the current weather conditions from locally saved weather data
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">optDataKind</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+         what kind of data you want to read
+        </li>
+        <li><span class="parameter">optWithUnits</span>
+            <span class="types"><span class="type">bool</span></span>
+        <p> true if units should be added to the return value string, default = false</p>
+
+<p> You can use the following values for <strong>optDataKind</strong>:</p>
+
+<ul>
+<li><code>time</code>:                               The UNIX time (that is, seconds since midnight GMT on 1 Jan 1970) at which this data point occurs.</li>
+<li><code>temperature</code>:                        numerical values representing the current temperatures</li>
+<li><code>apparentTemperature</code>:                numerical values representing the current apparent (or “feels like”) temperatures</li>
+<li><code>precipType</code>:                         A string representing the type of precipitation occurring at the given time. If defined, this property will have one
+of the following values: rain, snow, sleet (which applies to each of freezing rain, ice pellets, and “wintery mix”), or hail.</li>
+<li><code>precipProbability</code>:                  A numerical value between 0 and 1 (inclusive) representing the probability of precipitation</li>
+<li><code>precipIntensity</code>:                    A numerical value representing the average expected intensity (in inches of liquid water per hour) of precipitation
+occurring at the given time conditional on probability (that is, assuming any precipitation occurs at all). A very rough guide is that a value of 0 in./hr. corresponds
+to no precipitation, 0.002 in./hr. corresponds to very light precipitation, 0.017 in./hr. corresponds to light precipitation, 0.1 in./hr. corresponds to moderate
+precipitation, and 0.4 in./hr. corresponds to heavy precipitation.</li>
+<li><code>windSpeed</code>:                          A numerical value representing the wind speed in miles per hour</li>
+<li><code>windBearing</code>:                        A numerical value representing the direction that the wind is coming from in degrees, with true north at 0° and
+progressing clockwise. (If windSpeed is zero, then this value will not be defined.)</li>
+<li><code>icon</code>:                               A machine-readable text summary of this data point, suitable for selecting an icon for display.
+If defined, this property will have one of the following values: clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day,
+or partly-cloudy-night. (Developers should ensure that a sensible default is defined, as additional values, such as hail, thunderstorm, or tornado,
+may be defined in the future.)</li>
+<li><code>pressure</code>:                           A numerical value representing the sea-level air pressure in millibars.</li>
+<li><code>ozone</code>:                              A numerical value representing the columnar density of total atmospheric ozone at the given time in Dobson units.
+the following values: rain, snow, sleet (which applies to each of freezing rain, ice pellets, and “wintery mix”), or hail. (If precipIntensity is zero, then this property
+will not be defined.)</li>
+<li><code>cloudCover</code>:                         A numerical value between 0 and 1 (inclusive) representing the percentage of sky occluded by clouds.</li>
+<li><code>humidity</code>:                           A numerical value between 0 and 1 (inclusive) representing the relative humidity.</li>
+<li><code>dewPoint</code>:                           A numerical value representing the dew point at the given time in degrees Fahrenheit</li>
+<li><code>summary</code>:                            A human-readable text summary of this data point. (Do not use this value for automated purposes:
+you should use the icon property, instead.)</li>
+</ul>
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the value of the requested data
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="keyword">local</span> <span class="keyword">function</span> WeatherListener( event )
+      <span class="keyword">if</span> event.<span class="global">type</span> == <span class="string">"ready"</span> <span class="keyword">then</span>
+          <span class="global">print</span>( <span class="string">"Temperature"</span>, event.forecastio:GetCondition(<span class="string">"temperature"</span>, <span class="keyword">true</span>) )
+      <span class="keyword">end</span>
+ <span class="keyword">end</span>
+ <span class="keyword">local</span> weather = ForeCastIO:new({
+      apiKey      = <span class="string">"YOUR_API_KEY"</span>,
+      town        = <span class="string">"Barsinghausen"</span>,
+      street      = <span class="string">"Siehkamp 12"</span>,
+      zip         = <span class="string">"30890"</span>,
+      country     = <span class="string">"de"</span>,
+      units       = <span class="string">"si"</span>,
+      callback    = WeatherListener
+ })    </pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "forecast:GetDailyForecast"></a>
+    <strong>forecast:GetDailyForecast (optDay, optDataKind, optWithUnits)</strong>
+    </dt>
+    <dd>
+    Read the daily forecast weather conditions from locally saved weather data
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">optDay</span>
+            <span class="types"><span class="type">number</span></span>
+         number of days in the future to get the forecast for, 1=tomorrow, 2=day after tomorrow &hellip; etc, max number is 8 days
+        </li>
+        <li><span class="parameter">optDataKind</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+         the kind of data you want to get
+        </li>
+        <li><span class="parameter">optWithUnits</span>
+            <span class="types"><span class="type">bool</span></span>
+        <p> true if units should be added to the temperature forecast values, default = false</p>
+
+<p> You can use the following values for <strong>optDataKind</strong>:</p>
+
+<ul>
+<li><code>time</code>:                               The UNIX time (that is, seconds since midnight GMT on 1 Jan 1970) at which this data point occurs.</li>
+<li><code>temperatureMax</code>:                     numerical values representing the maximumum temperatures on the given day</li>
+<li><code>temperatureMin</code>:                     numerical values representing the minimum temperatures on the given day</li>
+<li><code>temperatureMaxTime</code>:                 UNIX time of the maximumum temperatures</li>
+<li><code>temperatureMinTime</code>:                 UNIX time of the minimum temperatures</li>
+<li><code>apparentTemperatureMax</code>:             numerical values representing the maximumum apparent (or “feels like”) temperatures</li>
+<li><code>apparentTemperatureMin</code>:             numerical values representing the minimum apparent (or “feels like”) temperatures</li>
+<li><code>apparentTemperatureMaxTime</code>:         UNIX time of the maximumum apparent temperatures</li>
+<li><code>apparentTemperatureMinTime</code>:         UNIX time of the minimum apparent temperatures</li>
+<li><code>precipType</code>:                         A string representing the type of precipitation occurring at the given time. If defined, this property will have one
+of the following values: rain, snow, sleet (which applies to each of freezing rain, ice pellets, and “wintery mix”), or hail.</li>
+<li><code>precipProbability</code>:                  A numerical value between 0 and 1 (inclusive) representing the probability of precipitation</li>
+<li><code>precipIntensity</code>:                    A numerical value representing the average expected intensity (in inches of liquid water per hour) of precipitation
+occurring at the given time conditional on probability (that is, assuming any precipitation occurs at all). A very rough guide is that a value of 0 in./hr. corresponds
+to no precipitation, 0.002 in./hr. corresponds to very light precipitation, 0.017 in./hr. corresponds to light precipitation, 0.1 in./hr. corresponds to moderate
+precipitation, and 0.4 in./hr. corresponds to heavy precipitation.</li>
+<li><code>precipIntensityMax</code>:                 numerical values representing the maximumum expected intensity of precipitation on the given day in inches of liquid
+water per hour.</li>
+<li><code>precipIntensityMaxTime</code>:             the UNIX time of precipIntensityMax</li>
+<li><code>windSpeed</code>:                          A numerical value representing the wind speed in miles per hour</li>
+<li><code>windBearing</code>:                        A numerical value representing the direction that the wind is coming from in degrees, with true north at 0° and
+progressing clockwise. (If windSpeed is zero, then this value will not be defined.)</li>
+<li><code>icon</code>:                               A machine-readable text summary of this data point, suitable for selecting an icon for display.
+If defined, this property will have one of the following values: clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day,
+or partly-cloudy-night. (Developers should ensure that a sensible default is defined, as additional values, such as hail, thunderstorm, or tornado,
+may be defined in the future.)</li>
+<li><code>pressure</code>:                           A numerical value representing the sea-level air pressure in millibars.</li>
+<li><code>ozone</code>:                              A numerical value representing the columnar density of total atmospheric ozone at the given time in Dobson units.
+the following values: rain, snow, sleet (which applies to each of freezing rain, ice pellets, and “wintery mix”), or hail. (If precipIntensity is zero, then this property
+will not be defined.)</li>
+<li><code>cloudCover</code>:                         A numerical value between 0 and 1 (inclusive) representing the percentage of sky occluded by clouds.</li>
+<li><code>humidity</code>:                           A numerical value between 0 and 1 (inclusive) representing the relative humidity.</li>
+<li><code>dewPoint</code>:                           A numerical value representing the dew point at the given time in degrees Fahrenheit</li>
+<li><code>sunsetTime</code>:                         The UNIX time of the last sunrise before and first sunset after the solar noon closest to local noon on the given day.</li>
+<li><code>sunriseTime</code>:                        The UNIX time of the last sunrise before and first sunset after the solar noon closest to local noon on the given day.</li>
+<li><code>summary</code>:                            A human-readable text summary of this data point. (Do not use this value for automated purposes:
+you should use the icon property, instead.)</li>
+<li><code>moonPhase</code>:                          A number representing the fractional part of the lunation number of the given day: a value of 0 corresponds to a new
+moon, 0.25 to a first quarter moon, 0.5 to a full moon, and 0.75 to a last quarter moon. (The ranges in between these represent waxing crescent, waxing gibbous, waning
+gibbous, and waning crescent moons, respectively.)</li>
+</ul>
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the requested forecast value as a string
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="keyword">local</span> <span class="keyword">function</span> WeatherListener( event )
+      <span class="keyword">if</span> event.<span class="global">type</span> == <span class="string">"ready"</span> <span class="keyword">then</span>
+          <span class="global">print</span>( <span class="string">"Temperature"</span>, event.forecastio:GetDailyForecast(<span class="number">2</span>, <span class="string">"temperatureMax"</span>, <span class="keyword">true</span>) )
+      <span class="keyword">end</span>
+ <span class="keyword">end</span>
+ <span class="keyword">local</span> weather = ForeCastIO:new({
+      apiKey      = <span class="string">"YOUR_API_KEY"</span>,
+      town        = <span class="string">"Barsinghausen"</span>,
+      street      = <span class="string">"Siehkamp 12"</span>,
+      zip         = <span class="string">"30890"</span>,
+      country     = <span class="string">"de"</span>,
+      units       = <span class="string">"si"</span>,
+      callback    = WeatherListener
+ })</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "forecast:GetHourlyForecast"></a>
+    <strong>forecast:GetHourlyForecast (optHour, optDataKind, optWithUnits)</strong>
+    </dt>
+    <dd>
+    Read the hourly forecast weather conditions from locally saved weather data
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">optHour</span>
+            <span class="types"><span class="type">number</span></span>
+         number of hours in the future to get the forecast for, max number is 49 days
+        </li>
+        <li><span class="parameter">optDataKind</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.2/manual.html#6.4">string</a></span>
+         what kind of data you want to read
+        </li>
+        <li><span class="parameter">optWithUnits</span>
+            <span class="types"><span class="type">bool</span></span>
+        <p> true if units should be added to the return value string, default = false</p>
+
+<p> You can use the following values for <strong>optDataKind</strong>:</p>
+
+<ul>
+<li><code>time</code>:                               The UNIX time (that is, seconds since midnight GMT on 1 Jan 1970) at which this data point occurs.</li>
+<li><code>temperature</code>:                        numerical values representing the current temperatures</li>
+<li><code>apparentTemperature</code>:                numerical values representing the current apparent (or “feels like”) temperatures</li>
+<li><code>precipType</code>:                         A string representing the type of precipitation occurring at the given time. If defined, this property will have one
+of the following values: rain, snow, sleet (which applies to each of freezing rain, ice pellets, and “wintery mix”), or hail.</li>
+<li><code>precipProbability</code>:                  A numerical value between 0 and 1 (inclusive) representing the probability of precipitation</li>
+<li><code>precipIntensity</code>:                    A numerical value representing the average expected intensity (in inches of liquid water per hour) of precipitation
+occurring at the given time conditional on probability (that is, assuming any precipitation occurs at all). A very rough guide is that a value of 0 in./hr. corresponds
+to no precipitation, 0.002 in./hr. corresponds to very light precipitation, 0.017 in./hr. corresponds to light precipitation, 0.1 in./hr. corresponds to moderate
+precipitation, and 0.4 in./hr. corresponds to heavy precipitation.</li>
+<li><code>windSpeed</code>:                          A numerical value representing the wind speed in miles per hour</li>
+<li><code>windBearing</code>:                        A numerical value representing the direction that the wind is coming from in degrees, with true north at 0° and
+progressing clockwise. (If windSpeed is zero, then this value will not be defined.)</li>
+<li><code>icon</code>:                               A machine-readable text summary of this data point, suitable for selecting an icon for display.
+If defined, this property will have one of the following values: clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day,
+or partly-cloudy-night. (Developers should ensure that a sensible default is defined, as additional values, such as hail, thunderstorm, or tornado,
+may be defined in the future.)</li>
+<li><code>pressure</code>:                           A numerical value representing the sea-level air pressure in millibars.</li>
+<li><code>ozone</code>:                              A numerical value representing the columnar density of total atmospheric ozone at the given time in Dobson units.
+the following values: rain, snow, sleet (which applies to each of freezing rain, ice pellets, and “wintery mix”), or hail. (If precipIntensity is zero, then this property
+will not be defined.)</li>
+<li><code>cloudCover</code>:                         A numerical value between 0 and 1 (inclusive) representing the percentage of sky occluded by clouds.</li>
+<li><code>humidity</code>:                           A numerical value between 0 and 1 (inclusive) representing the relative humidity.</li>
+<li><code>dewPoint</code>:                           A numerical value representing the dew point at the given time in degrees Fahrenheit</li>
+<li><code>summary</code>:                            A human-readable text summary of this data point. (Do not use this value for automated purposes:
+you should use the icon property, instead.)</li>
+</ul>
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the value of the requested data
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+ <span class="keyword">local</span> <span class="keyword">function</span> WeatherListener( event )
+      <span class="keyword">if</span> event.<span class="global">type</span> == <span class="string">"ready"</span> <span class="keyword">then</span>
+          <span class="global">print</span>( <span class="string">"Temperature"</span>, event.forecastio:GetHourlyForecast(<span class="number">12</span>, <span class="string">"temperature"</span>, <span class="keyword">true</span>) )
+      <span class="keyword">end</span>
+ <span class="keyword">end</span>
+ <span class="keyword">local</span> weather = ForeCastIO:new({
+      apiKey      = <span class="string">"YOUR_API_KEY"</span>,
+      town        = <span class="string">"Barsinghausen"</span>,
+      street      = <span class="string">"Siehkamp 12"</span>,
+      zip         = <span class="string">"30890"</span>,
+      country     = <span class="string">"de"</span>,
+      units       = <span class="string">"si"</span>,
+      callback    = WeatherListener
+ })    </pre>
+    </ul>
+
+</dd>
+</dl>
+
+
+</div> <!-- .content -->
+</div> <!-- #main -->
+
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
+<i style="float:right;">Last updated 2016-06-14 08:19:06 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
