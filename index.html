@@ -72,7 +72,7 @@
  <span style="font-size: 0.8em;">You are allowed to use the code for any private and commercial projects.
  You have to give credits like: Free forecast.io weather module from devilsquid.com</span></td></tr>
         <tr><td><strong>Author</strong></td><td>René Aye</td></tr>
-      <tr><td><strong>Last updated</strong></td><td>2016-06-14 08:19:06</td></tr>
+      <tr><td><strong>Last updated</strong></td><td>2016-06-16 15:18:06</td></tr>
     </table>
 </div><!-- .header -->
 
@@ -126,6 +126,8 @@
 <li><code>street</code>:     (<strong>string</strong>) the street and house number</li>
 <li><code>zip</code>:        (<strong>string</strong>) the zip code as a string</li>
 <li><code>country</code>:    (<strong>string</strong>) the full name or short code of the country</li>
+<li><code>lat</code>:        (<strong>string</strong>) latitude of the location to get weather from, insted of adress data you can assign geolocations</li>
+<li><code>lon</code>:        (<strong>string</strong>) longitude of the location to get weather from, insted of adress data you can assign geolocations</li>
 <li><code>expires</code>:    (<strong>number</strong>) how long before the weather data expires in seconds (<em>default</em>: 3600)</li>
 <li><code>units</code>:      (<strong>string</strong>) metric &ldquo;si&rdquo; or imperial &ldquo;us&rdquo; units or &ldquo;ca&rdquo; or &ldquo;uk2&rdquo; (<em>default</em>: &ldquo;us&rdquo;)</li>
 <li><code>language</code>:   (<strong>string</strong>) short code for the language, see here which languages are
@@ -197,7 +199,7 @@ effect on the <strong>units</strong> parameter (<em>default</em>: &ldquo;en&rdqu
 <p> You can use the following values for <strong>optDataKind</strong>:</p>
 
 <ul>
-<li><code>time</code>:                               The UNIX time (that is, seconds since midnight GMT on 1 Jan 1970) at which this data point occurs.</li>
+<li><code>time</code>:                               The UNIX GMT time (that is, seconds since midnight GMT on 1 Jan 1970) at which this data point occurs.</li>
 <li><code>temperature</code>:                        numerical values representing the current temperatures</li>
 <li><code>apparentTemperature</code>:                numerical values representing the current apparent (or “feels like”) temperatures</li>
 <li><code>precipType</code>:                         A string representing the type of precipitation occurring at the given time. If defined, this property will have one
@@ -282,15 +284,15 @@ you should use the icon property, instead.)</li>
 <p> You can use the following values for <strong>optDataKind</strong>:</p>
 
 <ul>
-<li><code>time</code>:                               The UNIX time (that is, seconds since midnight GMT on 1 Jan 1970) at which this data point occurs.</li>
+<li><code>time</code>:                               The UNIX GMT time (that is, seconds since midnight GMT on 1 Jan 1970) at which this data point occurs.</li>
 <li><code>temperatureMax</code>:                     numerical values representing the maximumum temperatures on the given day</li>
 <li><code>temperatureMin</code>:                     numerical values representing the minimum temperatures on the given day</li>
-<li><code>temperatureMaxTime</code>:                 UNIX time of the maximumum temperatures</li>
-<li><code>temperatureMinTime</code>:                 UNIX time of the minimum temperatures</li>
+<li><code>temperatureMaxTime</code>:                 UNIX GMT time of the maximumum temperatures</li>
+<li><code>temperatureMinTime</code>:                 UNIX GMT time of the minimum temperatures</li>
 <li><code>apparentTemperatureMax</code>:             numerical values representing the maximumum apparent (or “feels like”) temperatures</li>
 <li><code>apparentTemperatureMin</code>:             numerical values representing the minimum apparent (or “feels like”) temperatures</li>
-<li><code>apparentTemperatureMaxTime</code>:         UNIX time of the maximumum apparent temperatures</li>
-<li><code>apparentTemperatureMinTime</code>:         UNIX time of the minimum apparent temperatures</li>
+<li><code>apparentTemperatureMaxTime</code>:         UNIX GMT time of the maximumum apparent temperatures</li>
+<li><code>apparentTemperatureMinTime</code>:         UNIX GMT time of the minimum apparent temperatures</li>
 <li><code>precipType</code>:                         A string representing the type of precipitation occurring at the given time. If defined, this property will have one
 of the following values: rain, snow, sleet (which applies to each of freezing rain, ice pellets, and “wintery mix”), or hail.</li>
 <li><code>precipProbability</code>:                  A numerical value between 0 and 1 (inclusive) representing the probability of precipitation</li>
@@ -300,7 +302,7 @@ to no precipitation, 0.002 in./hr. corresponds to very light precipitation, 0.01
 precipitation, and 0.4 in./hr. corresponds to heavy precipitation.</li>
 <li><code>precipIntensityMax</code>:                 numerical values representing the maximumum expected intensity of precipitation on the given day in inches of liquid
 water per hour.</li>
-<li><code>precipIntensityMaxTime</code>:             the UNIX time of precipIntensityMax</li>
+<li><code>precipIntensityMaxTime</code>:             the UNIX GMT time of precipIntensityMax</li>
 <li><code>windSpeed</code>:                          A numerical value representing the wind speed in miles per hour</li>
 <li><code>windBearing</code>:                        A numerical value representing the direction that the wind is coming from in degrees, with true north at 0° and
 progressing clockwise. (If windSpeed is zero, then this value will not be defined.)</li>
@@ -315,8 +317,8 @@ will not be defined.)</li>
 <li><code>cloudCover</code>:                         A numerical value between 0 and 1 (inclusive) representing the percentage of sky occluded by clouds.</li>
 <li><code>humidity</code>:                           A numerical value between 0 and 1 (inclusive) representing the relative humidity.</li>
 <li><code>dewPoint</code>:                           A numerical value representing the dew point at the given time in degrees Fahrenheit</li>
-<li><code>sunsetTime</code>:                         The UNIX time of the last sunrise before and first sunset after the solar noon closest to local noon on the given day.</li>
-<li><code>sunriseTime</code>:                        The UNIX time of the last sunrise before and first sunset after the solar noon closest to local noon on the given day.</li>
+<li><code>sunsetTime</code>:                         The UNIX GMT time of the last sunrise before and first sunset after the solar noon closest to local noon on the given day.</li>
+<li><code>sunriseTime</code>:                        The UNIX GMT time of the last sunrise before and first sunset after the solar noon closest to local noon on the given day.</li>
 <li><code>summary</code>:                            A human-readable text summary of this data point. (Do not use this value for automated purposes:
 you should use the icon property, instead.)</li>
 <li><code>moonPhase</code>:                          A number representing the fractional part of the lunation number of the given day: a value of 0 corresponds to a new
@@ -381,7 +383,7 @@ gibbous, and waning crescent moons, respectively.)</li>
 <p> You can use the following values for <strong>optDataKind</strong>:</p>
 
 <ul>
-<li><code>time</code>:                               The UNIX time (that is, seconds since midnight GMT on 1 Jan 1970) at which this data point occurs.</li>
+<li><code>time</code>:                               The UNIX GMT time (that is, seconds since midnight GMT on 1 Jan 1970) at which this data point occurs.</li>
 <li><code>temperature</code>:                        numerical values representing the current temperatures</li>
 <li><code>apparentTemperature</code>:                numerical values representing the current apparent (or “feels like”) temperatures</li>
 <li><code>precipType</code>:                         A string representing the type of precipitation occurring at the given time. If defined, this property will have one
@@ -449,7 +451,7 @@ you should use the icon property, instead.)</li>
 
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
-<i style="float:right;">Last updated 2016-06-14 08:19:06 </i>
+<i style="float:right;">Last updated 2016-06-16 15:18:06 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
